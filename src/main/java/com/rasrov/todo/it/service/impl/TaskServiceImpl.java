@@ -8,11 +8,13 @@ import com.rasrov.todo.it.service.ITaskService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Service
 public class TaskServiceImpl implements ITaskService {
@@ -50,6 +52,20 @@ public class TaskServiceImpl implements ITaskService {
     });
 
     return buildParentChildTasks(currentDate);
+  }
+
+  @Override
+  @Transactional
+  public List<TaskResponseDTO> update(final List<TaskRequestDTO> taskDTOList,
+      final LocalDate date) {
+    taskRepository.deleteByDate(date);
+    return save(taskDTOList);
+  }
+
+  @Override
+  @Transactional
+  public void delete(final List<String> taskIdList) {
+    taskRepository.deleteByIdList(taskIdList.stream().map(UUID::fromString).toList());
   }
 
   private List<TaskResponseDTO> buildParentChildTasks(final LocalDate date) {

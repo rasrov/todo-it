@@ -12,4 +12,8 @@ public interface ITaskService {
 
   List<TaskResponseDTO> save(List<TaskRequestDTO> taskDTOList);
 
+  List<TaskResponseDTO> update(List<TaskRequestDTO> taskDTOList, LocalDate date);
+
+  void delete(List<String> taskIdList);
+
 }

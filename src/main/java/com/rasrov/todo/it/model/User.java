@@ -6,37 +6,32 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "task")
+@Table(name = "\"user\"")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Task {
+public class User {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
-  @NotBlank
-  @Column(name = "date")
-  private LocalDate date;
+  @Column(name = "user_email")
+  private String userEmail;
 
-  @NotBlank
-  @Column(name = "description")
-  private String description;
+  @Column(name = "username")
+  private String username;
 
-  @Column(name = "completed")
-  private boolean completed;
+  @Column(name = "password")
+  private String password;
 
-  @Column(name = "parent_id")
-  private UUID parentId;
+  @Column(name = "role")
+  private String role;
 }
